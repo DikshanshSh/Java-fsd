@@ -1,1 +1,35 @@
+Phase-1 Practice Project: Assisted Practic
+----------------------------------------------------------------
+
+Phase-1 Practice Project: Assisted Practic / SN.01 Set Up and Create a Git Repository
+
+To create a Git Repository Login to github account.
+On Dashboard go to to top right corner (+) button
+Click on new repository
+Type a short name for your repository
+Choose a repository visibility (Public or Private)
+Click Create repository.
+
+
+Phase-1 Practice Project: Assisted Practic / SN.02 CRUD Operations in Git
+
+Create a local directory
+# git init
+
+Read files
+# git show
+
+Update file
+# nano <file name>
+
+Delete file
+# git rm <filename>
+
+Phase-1 Practice Project: Assisted Practic / SN.03 Set Up and Configure GitHub Account.
+
+Go to https://github.com and go to sign up
+Pickup username, provide E-mail, create new Password and click on sign up for github
+An E-mail confirmation will be send on registered email.
+Viewing your GitHub profile.
+
 
