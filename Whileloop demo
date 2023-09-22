@@ -1,0 +1,20 @@
+package javaprogram;
+
+public class Whileloopdemo {
+
+	public static void main(String[] args) {
+		int i =1;
+		
+		//start of loop
+		while (i<=10) {
+			//loop statement
+			
+			System.out.println(i);
+			i++;
+		}
+		
+		System.out.println("Printed value from 1 to 10");
+
+	}
+
+}
