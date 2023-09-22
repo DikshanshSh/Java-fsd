@@ -1,0 +1,19 @@
+package javaprogram;
+
+public class Dowhiledemo {
+
+	public static void main(String[] args) {
+		
+		//print statement 7 times if statement is true 
+		// else for false atleast print statement once
+		
+		int i=1;
+		do {
+			System.out.println("Today is wednesday");
+			i++;
+		}
+		while(i<=7);
+		
+		System.out.println("message out of loop");
+	}
+}
