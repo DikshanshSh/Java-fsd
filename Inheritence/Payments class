@@ -1,0 +1,21 @@
+package inheritance;
+
+public class Payments extends Homepage{
+	// This is multi-level inheritance
+	//This class is child to homepage and grandchild to base class
+	public void payments() {
+		System.out.println("testing the payment page");
+	}
+
+	public static void main(String[] args) {
+		
+		Payments obj = new Payments();
+	    login("admin", "admin@123");
+		obj.Homepagetest();
+		obj.payments();
+		obj.logout();
+		// TODO Auto-generated method stub
+
+	}
+
+}
