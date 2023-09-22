@@ -1,0 +1,24 @@
+package inheritance;
+
+public class Homepage extends Base {
+	
+	//this is Single level inheritance
+	//this class is child to base
+	
+	public void Homepagetest()
+	{
+		System.out.println("Test from Homepage");
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		Homepage obj = new Homepage();
+		login("admin","admin");
+		obj.logout();
+		obj.Homepagetest();
+		
+
+	}
+
+}
