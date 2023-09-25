@@ -1,0 +1,39 @@
+package jdbcdemo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Createdropdbdemo {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+
+
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");                                       // Direct method to load JDBC driver name for MySql || add throw decleration  
+		String dburl = "jdbc:mysql://localhost:3306/animated_movies";                        // statement to connect to database created, Ex: animated_movies
+		String username = "root";                                                                // username of Database
+    String password = "root";                                                                    // Password of Database                                                                  
+		
+
+    String query = "create database demo_database";                                                //query for creation of database
+		String query1 = "use demo_database";                                                           //query to select database 
+		String query2 = "drop database demo_database";                                                //query to drop total rows stored and database
+		
+		Connection con = DriverManager.getConnection(dburl,username,password);
+		
+		Statement stmt = con.createStatement();
+		
+		stmt.executeUpdate(query);                                                                 // statement to execute for the creation of database(query)
+		System.out.println("Database successfully created");
+		stmt.executeUpdate(query1);                                                               // statement for execution of select statement(query1)
+		System.out.println("Database selection successfully: demo_database");
+		stmt.executeUpdate(query2);	                                                              // statement for execution of drop statement(query2)
+		System.out.println("Database drop successfully : demo_database");
+		
+		con.close();                                                                          // closing database connection
+
+	}
+
+}
