@@ -1,0 +1,46 @@
+package jdbcdemo;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Selectquerydemo {
+
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		
+		// we should connect to DB
+		//Load DB driver
+		
+    //first line in the process of connecting to db 
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		//connect to db -> use class Drivermanager and method getconnection(DBURL, username, password)
+		String DBURL ="jdbc:mysql://localhost:3306/animated_movies";
+		String username ="root";
+		String password ="root";
+		
+		Connection con = DriverManager.getConnection(DBURL, username,password);
+		
+		//run query to db
+		String query = "select * from movies";
+		
+		//send query to db
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(query);
+		
+		while(rs.next())
+			{
+			System.out.print("Title " + rs.getString("Title")+ "\t");
+			System.out.print("genre: " + rs.getString("genre") + "\t");
+			System.out.print("director: " + rs.getString("director") + "\t");
+			System.out.println("release_year: " + rs.getString("release_year"));
+			
+		}
+		con.close();
+		
+
+	}
+
+}
