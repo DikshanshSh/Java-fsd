@@ -1,0 +1,142 @@
+--->>  Amazon Homepage login Test
+
+package amazontest.Project;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class Homepagetesting {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriver driver = new ChromeDriver();
+		
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		
+		driver.get("https://www.amazon.in/");
+		
+		WebElement e1 = driver.findElement(By.xpath("//span[@class='nav-line-2 ']"));
+		Actions a = new Actions(driver);
+		a.moveToElement(e1).perform();
+		Thread.sleep(3000);
+		
+		driver.findElement(By.linkText("Sign in")).click();
+		
+		Thread.sleep(3500);
+		driver.findElement(By.id("ap_email")).sendKeys("shukladikshansh12@gmail.com");
+		driver.findElement(By.xpath("//input[@id='continue']")).click();
+		
+		driver.findElement(By.id("ap_password")).sendKeys("abc@123");
+		driver.findElement(By.id("signInSubmit")).click();
+		
+        String text = driver.findElement(By.xpath("//div[@class='a-box-inner a-alert-container']/descendant::span")).getText();
+		
+		System.out.println("Error test is >> " + text);
+}
+}
+=============================================================================================================================================================================
+ --->> 2.	Mobile Category search for -> Mobile-> mobile accessories -> Apple
+
+package amazontest.Project;
+
+import java.util.ArrayList;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+public class mobilecategorytest {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		// wait for 2 seconds the page to Load
+		//driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+		driver.get("https://www.amazon.in/");
+		
+		// click on the link Mobile:
+		Thread.sleep(1500);
+		
+		driver.findElement(By.linkText("Mobiles")).click();
+		
+		// Move the mouse to the element 
+		
+		WebElement mobile = driver.findElement(By.xpath("//div[@id='nav-subnav']/descendant::span[2]"));
+		
+		Actions a = new Actions(driver);
+		
+		a.moveToElement(mobile).build().perform();
+		
+		Thread.sleep(3000);
+		driver.findElement(By.linkText("Apple")).click();
+		
+		driver.findElement(By.xpath("(//div[@class='sg-col-inner'])[7]/descendant::span[2]")).click();
+	ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+		
+		driver.switchTo().window(tabs.get(1));
+		Thread.sleep(1500);
+		driver.findElement(By.id("add-to-cart-button")).click();
+	}
+
+}
+========================================================================================================================================================================
+
+--->>  Amazon Search bar testing for mobile product
+
+package amazontest.Project;
+
+import java.util.ArrayList;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class Testsearchbarmobile {
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		WebDriver driver = new ChromeDriver();
+		driver.manage().deleteAllCookies();
+		driver.manage().window().maximize();
+		driver.get("https://www.amazon.in/");
+		
+		driver.findElement(By.id("twotabsearchtextbox")).sendKeys("iphone 13");
+		
+		driver.findElement(By.id("twotabsearchtextbox")).submit();
+		
+		Thread.sleep(1500);
+		
+		driver.findElement(By.xpath("(//div[@class='a-section'])[2]/descendant::span[11]")).click();
+
+        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());	
+
+		driver.switchTo().window(tabs.get(1));
+		
+		Thread.sleep(1500);
+		
+		
+		driver.findElement(By.id("wishlistButtonStack")).click();
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
