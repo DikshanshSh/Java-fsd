@@ -1,0 +1,20 @@
+<suite name="test1" verbose="1" parallel="methods" thread-count="2">
+
+<test name="TestCycle1">
+<classes>
+<class name="com.app.TestNGscripts.tutorialtesting">
+  <methods>
+  <include name= "login"></include>
+  </methods>
+</class>
+
+
+<class name="com.app.TestNGscripts.BeforeAfterMethodAnotation">
+<methods>
+   <include name = "logout"></include>
+</methods>
+</class>
+
+</classes>
+</test>
+</suite>
