@@ -1,0 +1,70 @@
+.feature file
+====================
+
+Feature: Testing wikipedia page
+
+Scenario: User has to test if login on wiki page is successful or not
+
+
+
+Given: User opens wikipedia page and enter URL
+Then: User capture the title of the page 
+And: User enter username as admin and password as admin@12 on the page 
+When: User click on login button
+And: User close the browser
+ 
+
+===================================================================================================================================
+Background steps :-
+====================
+
+package steps;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+
+public class TestloginFeature {
+	
+	WebDriver driver;
+	
+	@Given("User opens wikipedia page and enter URL")
+	public void user_opens_wikipedia_page_and_enter_url() {
+		driver = new ChromeDriver();
+		   driver.manage().window().maximize();
+			driver.get("https://en.wikipedia.org/w/index.php?title=Special:UserLogin&returnto=Main+Page");
+	}
+
+
+	@Then("User capture the title of the page")
+	public void user_capture_the_title_of_the_page() {
+		System.out.println(driver.getTitle());
+	    
+	}
+
+	@Then("User enter username as admin and password as admin@{int} on the page")
+	public void user_enter_username_as_admin_and_password_as_admin_on_the_page(Integer int1) {
+		driver.findElement(By.xpath("//input[@id='wpName1']")).sendKeys("admin");
+		driver.findElement(By.xpath("//input[@id='wpPassword1']")).sendKeys("admin@12");
+	    
+	}
+
+	@When("User click on login button")
+	public void user_click_on_login_button() throws InterruptedException {
+		driver.findElement(By.xpath("//button[@type='submit']")).click();
+		Thread.sleep(2000);
+	}
+	
+	@When("User close the browser")
+	public void user_close_the_browser() {
+		driver.quit();
+	    
+	}
+		
+		
+	}
+
