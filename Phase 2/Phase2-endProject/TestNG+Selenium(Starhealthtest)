@@ -1,0 +1,214 @@
+Test Scenario: 2 [TestNG + Selenium]
+============================================
+
+Starhealthpage.java class:-
+========================
+
+package endProject;
+
+import static org.testng.Assert.assertEquals;
+
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
+
+public class Starhealthpage {
+
+WebDriver driver;
+
+@BeforeClass
+public void openBrowser()
+{
+driver = new ChromeDriver();
+driver.manage().window().maximize();
+driver.get("https://www.starhealth.in/");
+}
+
+@Test(priority='1')
+public void Validate_title()
+{
+System.out.println("The title of the page");
+String ExpectedTitle = "Star";
+String ActualTitle = "Star"; // replace it with selenium code
+assertEquals(ActualTitle, ExpectedTitle , "The title is not valid");
+}
+
+@Test(priority='2')
+public void Test_Header_plan() throws InterruptedException
+{
+WebElement e2 = driver.findElement(By.xpath("//span[@class='ml-8 flex align-center']"));
+Actions a = new Actions(driver);
+a.moveToElement(e2).perform();
+Thread.sleep(2000);
+
+
+driver.findElement(By.xpath("(//a[@class='font-500 text-capitalize text-14'])[2]")).click();
+Thread.sleep(4000);
+}
+
+@Parameters({"name" , "mobile" , "pincode"})
+@Test(priority='3')
+public void details(String name, String mobile, String pincode) throws InterruptedException
+{
+
+driver.findElement(By.id("name")).sendKeys(name);
+driver.findElement(By.id("phoneNumber")).sendKeys(mobile);
+driver.findElement(By.id("pinCode")).sendKeys(pincode);
+Thread.sleep(1000);
+
+}
+
+@Test(priority='4',dataProvider = "testdata01" )
+public void validatedatafromExcel(String input1, String input2, String input3, String input4 )
+{
+
+String ActualDetails1 = driver.findElement(By.xpath("(//a[@class='mr-4 mr-10-xs'][1])")).getAttribute("href");
+String Expecteddetail1 = input1;
+Assert.assertEquals(ActualDetails1,Expecteddetail1);
+
+
+String Expecteddetail2 = driver.findElement(By.xpath("(//a[@class='mr-4 mr-10-xs'][2])")).getAttribute("href");
+String ActualDetails2 = input2;
+Assert.assertEquals(ActualDetails2,Expecteddetail2);
+
+String Expecteddetail3 = driver.findElement(By.xpath("(//a[@class='mr-4 mr-10-xs'][3])")).getAttribute("href");
+String ActualDetails3 = input3;
+Assert.assertEquals(ActualDetails3,Expecteddetail3);
+
+String Expecteddetail4 = driver.findElement(By.xpath("(//a[@class='mr-4 mr-10-xs'][4])")).getAttribute("href");
+String ActualDetails4 = input4;
+Assert.assertEquals(ActualDetails4,Expecteddetail4);
+
+
+	}
+
+
+@DataProvider(name="testdata01")public Object[][] datasupplier() throws EncryptedDocumentException, IOException
+{
+
+Object input[][] = xls_Dataprovider.getTestData("Sheet");
+return input;
+}
+
+
+@AfterClass
+public void teardown()
+{
+driver.close();
+}
+
+}
+
+
+Xls_Dataprovider.java:-
+========================
+
+package endProject;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
+
+public class xls_Dataprovider {
+static Workbook book;
+static Sheet sheet;
+
+public static String sheet_path = "C:\\Users\\shukl\\Downloads\\Mytestdata2.xlsx";
+
+public static Object[][] getTestData(String sheetName ) throws EncryptedDocumentException, IOException
+{
+
+FileInputStream file = null;
+file =	new FileInputStream(sheet_path);
+
+book = WorkbookFactory.create(file);
+
+sheet = book.getSheet(sheetName);
+
+//create an array which will store number of rows and cols
+// dataType[][] arrayname = new datatype[lengthrow][lengthcol]
+
+Object[][] inputdata = new Object[sheet.getLastRowNum()][sheet.getRow(0).getLastCellNum()];
+
+for(int i=0;i<sheet.getLastRowNum();i++)
+{
+for(int j=0;j<sheet.getRow(0).getLastCellNum();j++)
+{
+inputdata[i][j] = sheet.getRow(i+1).getCell(j).toString();
+}
+}
+
+return inputdata;
+}
+
+}
+
+
+Starhealth002.java class:
+=================
+
+package endProject;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class Starhealth002 {
+
+@Test
+public void print_link()
+
+{
+WebDriver driver = new ChromeDriver();
+driver.manage().window().maximize();
+driver.get("https://www.starhealth.in/");
+
+driver.findElement(By.linkText("Glossary")).click();
+String link2= driver.findElement(By.linkText("Employee Login")).getText();
+driver.close();
+
+}
+}
+	
+
+TestngRunner.xml file:
+=====================
+
+<suite name="testsuite" verbose="1" parallel="tests">
+
+<test name="starhealth001">
+<parameter name="name"  value="admin"/>
+<parameter name="mobile"  value="5353546465"/>
+<parameter name="pincode"  value="100154"/>
+<classes>
+<class name="endProject.Starhealthpage">
+</class>
+</classes>
+</test>
+
+
+<test name="starhealth002">
+
+<classes>
+<class name="endProject.Starhealth002">
+</class>
+</classes>
+</test>
+</suite>
