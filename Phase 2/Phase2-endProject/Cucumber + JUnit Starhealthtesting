@@ -1,0 +1,130 @@
+Phase-end Project : Automating the Star Health Application Using Selenium (Phase 2)
+(Source Code):
+=======================================================================================================================================
+
+
+Test Scenario: 1 [Cucumber + JUnit]
+=====================================
+Starhealth.feature file
+
+
+@all
+Feature: Phase End project
+
+Scenario: Star health home page test
+
+Given: User open the chrome browser and starhealth application
+Then : validates the Star Health home page title using a JUnit assertion 
+Then : clicks on the Buy Now button 
+And : User enters following details
+
+| admin | 9453478745 | 123455 | 
+| Dikshansh | 7979797979 | 480048 | 
+And : User clicks on I need health insurance from the drop-down menu and select plan
+And : User clicks on the Star Health logo 
+And : Close all the browsers
+============================================================
+
+Starhealth.java file:
+=======================================
+package steps;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import io.cucumber.datatable.DataTable;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+
+
+public class starhealth {
+
+WebDriver driver;
+
+@Given("User open the chrome browser and starhealth application")
+public void user_open_the_chrome_browser_and_starhealth_application() {
+driver = new ChromeDriver();
+driver.manage().window().maximize();
+driver.get("https://www.starhealth.in/");
+
+}
+
+@Then("validates the Star Health home page title using a JUnit assertion")
+public void validates_the_star_health_home_page_title_using_a_j_unit_assertion(){
+System.out.println(driver.getTitle());
+
+
+}
+
+@Then("clicks on the Buy Now button")
+public void clicks_on_the_buy_now_button() {
+driver.findElement(By.xpath("//div[@class='primaryButton_primary__lQkYH ']")).click();
+
+}
+
+@Then("User enters following details")
+public void user_enters_following_details(DataTable datatable) {
+List<List<String>> userList = datatable.asLists(String.class);
+
+for(List<String> e : userList)
+
+{
+driver.findElement(By.xpath("//input[@id='name']")).clear();
+driver.findElement(By.xpath("//input[@id='name']")).sendKeys(e.get(0));
+driver.findElement(By.xpath("//input[@id='contact_no']")).clear();
+driver.findElement(By.xpath("//input[@id='contact_no']")).sendKeys(e.get(1));
+driver.findElement(By.xpath("//input[@id='pinCode']")).clear();
+driver.findElement(By.xpath("//input[@id='pinCode']")).sendKeys(e.get(2));
+
+
+}
+
+}
+
+@Then("User clicks on I need health insurance from the drop-down menu and select plan")
+public void user_clicks_on_i_need_health_insurance_from_the_drop_down_menu_and_select_plan() {
+driver.findElement(By.xpath("//div[@id='grouped-select']")).click();
+driver.findElement(By.xpath("//li[@class='MuiButtonBase-root MuiListItem-root MuiMenuItem-root MuiMenuItem-gutters MuiListItem-gutters MuiListItem-button'][2]")).click();
+
+}
+
+@Then("User clicks on the Star Health logo")
+public void user_clicks_on_the_star_health_logo() {
+
+driver.findElement(By.xpath("//*[@id=\"hello\"]/header/div/a/img")).click();
+
+}
+@Then("Close all the browsers")
+public void close_all_the_browsers() {
+driver.close();
+
+}
+}
+
+TestRunner.xml file:
+====================
+
+package runner;
+
+import org.junit.runner.RunWith;
+
+import io.cucumber.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+
+@RunWith(Cucumber.class)
+@CucumberOptions(
+	features = "C:\\Users\\shukl\\eclipse-workspace\\Cucumber-Phaseendproject\\src\\test\\java\\features\\Starthealth.feature",
+	glue = {"steps"},
+	dryRun = false,
+	plugin = {"pretty",
+			  "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:", "timeline:test-output-thread/"}, 
+	
+	monochrome = true, // console output will be in more readable format
+	tags = "@all"
+		
+		)
+
+public class TestRunner {
